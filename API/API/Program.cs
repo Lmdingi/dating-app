@@ -21,6 +21,8 @@ namespace API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -34,6 +36,12 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseCors(x =>
+            {
+                x.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+            });
 
             app.MapControllers();
 
