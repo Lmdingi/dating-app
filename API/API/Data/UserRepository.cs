@@ -34,6 +34,12 @@ namespace API.Data
 
             quary = quary.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
 
+            quary = userParams.OrderBy switch
+            {
+                "created" => quary.OrderByDescending(x => x.Created),
+                _ => quary.OrderByDescending(x => x.LastActive),
+            };
+
             return await PageList<MemberDto>.CreateAsync(quary.ProjectTo<MemberDto>(mapper.ConfigurationProvider), userParams.PageNumber, userParams.PageSize);
         }
 
