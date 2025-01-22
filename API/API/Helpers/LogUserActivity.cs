@@ -12,7 +12,7 @@ namespace API.Helpers
 
             if(context.HttpContext.User.Identity?.IsAuthenticated != true) return;
 
-            var userId = resultsContext.HttpContext.User.GetUserID();
+            var userId = resultsContext.HttpContext.User.GetUserId();
 
             var repo = resultsContext.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
             var user = await repo.GetUserByIdAsync(userId);
