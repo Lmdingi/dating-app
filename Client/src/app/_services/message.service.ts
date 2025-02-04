@@ -19,10 +19,23 @@ export class MessageService {
     params = params.append('container', container);
 
     return this.http
-      .get<Message[]>(this.baseUrl + 'messages', { observe: 'response', params })
+      .get<Message[]>(this.baseUrl + 'messages', {
+        observe: 'response',
+        params,
+      })
       .subscribe({
         next: (response) =>
           setPaginatedResponse(response, this.paginatedResult),
       });
+  }
+
+  getMessageThread(username: string) {
+    return this.http.get<Message[]>(
+      this.baseUrl + 'messages/thread/' + username
+    );
+  }
+
+  sendMessage(username: string, content: string){
+    return this.http.post<Message>(this.baseUrl + 'messages', {recipientUsername: username, content})
   }
 }
