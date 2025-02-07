@@ -47,15 +47,15 @@ namespace API
             {
                 x.AllowAnyHeader()
                 .AllowAnyMethod()
-                //.AllowCredentials()
-                .AllowAnyOrigin();
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200");
             });
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
-            app.MapHub<PresenceHub>("hub/presence");
+            app.MapHub<PresenceHub>("hubs/presence");
 
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
